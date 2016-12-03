@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="materialize.css">
   </head>
+
   <body>
     <header>
       <div class="row cyan lighten-3 z-depth-1 valign-wrapper">
@@ -24,7 +25,122 @@
         </div>
       </div>
     </header>
-    <main></main>
-    <footer></footer>
+
+    <main>
+      <div class="row">
+        <div class="col s8">
+          <div class="container">
+            <div class="row center-align">
+              <a class="btn">New Game</a>
+            </div>
+
+            <h3 class="center-align">Player 1</h3>
+
+            <div class="center-align">
+              <a class="btn">Roll</a>
+            </div>
+
+            <div id="cup" class="row pink lighten-5">
+              <div id="space1"class="col s2 pink lighten-4">1
+              </div>
+              <div id="space2"class="col s2 pink lighten-3">2
+              </div>
+              <div id="space3"class="col s2 pink lighten-4">3
+              </div>
+              <div id="space4"class="col s2 pink lighten-3">4
+              </div>
+              <div id="space5"class="col s2 pink lighten-4">5
+              </div>
+              <div id="space6"class="col s2 pink lighten-3">6
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s4 blue lighten-1">
+          <div class="row">
+            <h5 class="center-align white-text">Score</h5>
+            <table class="bordered highlight">
+              <thead>
+                <tr>
+                  <th data-field="id"></th>
+                  <th data-field="name">Player 1</th>
+                </tr>
+              </thead>
+
+              <tbody id="tableBody">
+                <tr>
+                  <td>Aces</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Twos</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Threes</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Fours</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Fives</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Sixes</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Bonus</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>3 of a kind</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>4 of a kind</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Full House</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Sm Straight</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Lg Straight</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>YAHTZEE</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Chance</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>YAHTZEE BONUS</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+    </footer>
   </body>
 </html>
