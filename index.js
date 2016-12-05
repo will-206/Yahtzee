@@ -38,4 +38,112 @@ function drawScoreCard() {
     $('#tableBody').append($tableRow);
   }
 }
-drawScoreCard();
+
+function drawDice(face, space) {
+  const $dice = $('<div>');
+  $dice.addClass('dice');
+  function addDot(target, number) {
+    for(let j = 0; j < number; j++) {
+      target.append($('<span>').addClass('dot'));
+    }
+  }
+  switch (face) {
+    case 1:
+    $dice.addClass('one');
+    addDot($dice, 1);
+    space.append($dice);
+    break;
+    case 2:
+    $dice.addClass('two');
+    addDot($dice, 2);
+    space.append($dice);
+    break;
+    case 3:
+    $dice.addClass('three');
+    addDot($dice, 3);
+    space.append($dice);
+    break;
+    case 4:
+    $dice.addClass('four');
+    let $column = $('<div>');
+    $column.addClass('column');
+    addDot($column, 2);
+    $dice.append($column);
+    $column = $('<div>');
+    $column.addClass('column');
+    addDot($column, 2);
+    $dice.append($column);
+    space.append($dice);
+    break;
+    case 5:
+    $dice.addClass('five');
+    let $column2 = $('<div>');
+    $column2.addClass('column');
+    addDot($column2, 2);
+    $dice.append($column2);
+    $column2 = $('<div>');
+    $column2.addClass('column');
+    addDot($column2, 1);
+    $dice.append($column2);
+    $column2 = $('<div>');
+    $column2.addClass('column');
+    addDot($column2, 2);
+    $dice.append($column2);
+    space.append($dice);
+    break;
+    case 6:
+    $dice.addClass('six');
+    let $column3 = $('<div>');
+    $column3.addClass('column');
+    addDot($column3, 3);
+    $dice.append($column3);
+    $column3 = $('<div>');
+    $column3.addClass('column');
+    addDot($column3, 3);
+    $dice.append($column3);
+    space.append($dice);
+  }
+}
+
+const dice = {
+  space1: {currentValue: 6, locked: false},
+  space2: {currentValue: 5, locked: false},
+  space3: {currentValue: 4, locked: false},
+  space4: {currentValue: 3, locked: false},
+  space5: {currentValue: 2, locked: false},
+  space6: {currentValue: 1, locked: false}
+}
+function resetDiceValue() {
+  for (let key in dice) {
+    dice[key].currentValue = 6;
+  }
+  unlock();
+}
+function unlock() {
+  for (let key in dice) {
+    dice[key].locked = false;
+  }
+}
+function rollDice() {
+  for (let key in dice) {
+    dice[key].currentValue = random();
+  }
+}
+function drawAllDice() {
+  for (let key in dice) {
+    drawDice(dice[key].currentValue, $('#'+ key));
+  }
+}
+function gameLoop() {
+  $('#newGame').on('click', (event) => {
+    resetDiceValue();
+    $('#controls').removeClass('hide');
+    drawScoreCard();
+    drawAllDice();
+    $('#roll').on('click', (event) => {
+      rollDice();
+      drawAllDice();
+    });
+  });
+}
+gameLoop();

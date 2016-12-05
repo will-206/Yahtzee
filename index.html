@@ -7,6 +7,7 @@
     <script defer src="index.js"></script>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 
   <body>
@@ -14,6 +15,7 @@
       <div class="row cyan lighten-3 z-depth-1 valign-wrapper">
         <div id="rules" class="col s3">
           <a class="valign center-align">New Game Placeholder<a>
+            <i class="material-icons">lock</i>
         </div>
 
         <div class="col s6">
@@ -31,29 +33,38 @@
         <div class="col s8">
           <div class="container">
             <div class="row center-align">
-              <a class="btn">New Game</a>
+              <a id="newGame" class="btn">New Game</a>
             </div>
 
-            <h3 class="center-align">Player 1</h3>
+            <section id="controls" class="hide">
+              <h3 class="center-align">Player 1</h3>
 
-            <div class="center-align">
-              <a class="btn">Roll</a>
-            </div>
+              <div class="center-align">
+                <a id="roll" class="btn">Roll</a>
+              </div>
 
-            <div id="cup" class="row pink lighten-5">
-              <div id="space1"class="col s2 pink lighten-4">1
+              <div class="col s12 l6">
+                <div class="row">
+                  <div id="space1"class="col s4 pink lighten-4">1
+                  </div>
+                  <div id="space2"class="col s4 pink lighten-3">2
+                  </div>
+                  <div id="space3"class="col s4 pink lighten-4">3
+                  </div>
+                </div>
               </div>
-              <div id="space2"class="col s2 pink lighten-3">2
+
+              <div class="col s12 l6">
+                <div class="row">
+                  <div id="space4"class="col s4 pink lighten-3">4
+                  </div>
+                  <div id="space5"class="col s4 pink lighten-4">5
+                  </div>
+                  <div id="space6"class="col s4 pink lighten-3">6
+                  </div>
+                </div>
               </div>
-              <div id="space3"class="col s2 pink lighten-4">3
-              </div>
-              <div id="space4"class="col s2 pink lighten-3">4
-              </div>
-              <div id="space5"class="col s2 pink lighten-4">5
-              </div>
-              <div id="space6"class="col s2 pink lighten-3">6
-              </div>
-            </div>
+            </section>
           </div>
         </div>
 
