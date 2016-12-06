@@ -132,6 +132,7 @@ function getScore(category) {
   // console.log(score);
   return score;
 }
+
 function drawScoreCard() {
   $('#tableBody').empty();
   for (let elem in scoreCard) {
@@ -140,12 +141,17 @@ function drawScoreCard() {
     $td.addClass('category');
     $td.text(scoreCard[elem].name);
     $tableRow.append($td);
-
     $td = $('<td>');
     $td.text(getScore(elem.toString()));
     $td.addClass("value");
     $tableRow.append($td);
     $('#tableBody').append($tableRow);
+  }
+}
+function resetScoreCard() {
+  for (const elem in scoreCard) {
+    console.log(scoreCard[elem].score);
+    scoreCard[elem].score = 0;
   }
 }
 
@@ -227,50 +233,51 @@ function drawDice(face, space) {
 //   space5: {currentValue: 6, locked: false},
 // }
 const dice = [
-  {currentValue: 6, locked: false},
-  {currentValue: 6, locked: false},
-  {currentValue: 6, locked: false},
-  {currentValue: 6, locked: false},
-  {currentValue: 6, locked: false}
-]
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false}
+];
 function resetDice() {
-  for (let key in dice) {
-    dice[key].currentValue = 6;
+  for (let i = 0; i< dice.length; i++) {
+    dice[i].currentValue = 6;
   }
-  unlock();
+  unlockDice();
 }
-function unlock() {
-  for (let key in dice) {
-    dice[key].locked = false;
+function unlockDice() {
+  for (let i = 0; i < dice.length; i++) {
+    dice[i].locked = false;
   }
 }
 function rollDice() {
-  for (let key in dice) {
-    if (!dice[key].locked) {
-      dice[key].currentValue = Math.floor(Math.random() * 6 + 1);
+  for (let i = 0; i < dice.length; i++) {
+    if (!dice[i].locked) {
+      dice[i].currentValue = Math.floor(Math.random() * 6 + 1);
     }
   }
+}
+function $diceSpace(index) {
+  return $('#space' + (index + 1));
 }
 function drawAllDice() {
-  for (let key in dice) {
-    $('#' + key).empty();
-    drawDice(dice[key].currentValue, $('#' + key));
+  for (let i = 0; i < dice.length; i++) {
+    $diceSpace(i).empty();    drawDice(dice[i].currentValue, $diceSpace(i));
 
-    if (dice[key].locked) {
+    if (dice[i].locked) {
       let $lock = $('<i class="material-icons" >lock</i>');
-      $('#' + key).append($lock);
+      $diceSpace(i).append($lock);
     }
   }
-  // console.log(getScore("aces"));
-  drawScoreCard();
 }
 function addDiceListeners() {
-  for (let key in dice) {
-    $('#' + key).on('click', (event) => {
-      if (dice[key].locked) {
-        dice[key].locked = false;
+  for (let i = 0; i < dice.length; i ++) {
+    $diceSpace(i).on('click', (event) => {
+      console.log(i);
+      if (dice[i].locked) {
+        dice[i].locked = false;
       } else {
-        dice[key].locked = true;
+        dice[i].locked = true;
       }
       drawAllDice();
     });
@@ -278,15 +285,17 @@ function addDiceListeners() {
 }
 function gameLoop() {
   $('#newGame').on('click', (event) => {
-    resetDice();
     $('#controls').removeClass('hide');
-    drawScoreCard();
+    resetDice();
     drawAllDice();
+    drawScoreCard();
+    resetScoreCard();
+  });
+  $('#roll').on('click', (event) => {
     addDiceListeners();
-    $('#roll').on('click', (event) => {
-      rollDice();
-      drawAllDice();
-    });
+    rollDice();
+    drawAllDice();
+    drawScoreCard();
   });
 }
 gameLoop();
