@@ -21,22 +21,13 @@ const scoreCard = {
 
 function getScore(category) {
   let resultArr = [];
+  let score = 0;
+
   for (let key in dice) {
     resultArr.push(dice[key].currentValue);
   }
-  let score = 0;
-
-  function resultObj() {
-    let resultObj = {};
-    for (let elem in resultArr) {
-      if (resultObj.hasOwnProperty('elem')) {
-
-      } else {
-        resultObj.elem = resultArr.elem
-      }
-    }
-    return resultObj;
-  }
+  let resultString = resultArr.sort().toString().replace(/,/g, "");
+  console.log(resultString);
 
   function addScore(number) {
     for(let elem in resultArr) {
@@ -46,8 +37,8 @@ function getScore(category) {
     }
   }
 
-  function countDuplicates() {
-  }
+  // function countDuplicates() {
+  // }
 
   function total(){
     let total = 0;
@@ -88,37 +79,44 @@ function getScore(category) {
     break;
 
     case "threeOfAKind":
-    //
-    //score = total;
+    if (/(.)\1{2}/.test(resultString)) {
+      score = total;
+    }
     break;
 
     case "fourOfAKind":
-    //
-    //score = total;
+    if (/(.)\1{3}/.test(resultString)) {
+      score = total;
+    }
     break;
 
     case "fullHouse":
-    //
     //score = 25
     break;
 
     case "smStraight":
-    //4 in a row
-    //score = 30
+    console.log(resultArr.sort().toString());
+    if (/1.*2.*3.*4|2.*3.*4.*5|3.*4.*5.*6/.test(resultString)) {
+      score = 30;
+    }
     break;
 
     case "lgStraight":
-    //5 in a row
-    //score = 40
+    if (/12345|23456/.test(resultString)) {
+      score = 40;
+    }
     break;
 
     case "yahtzee":
-    //all same
-    //score = 50
+    if (/(.)\1{4}/.test(resultString)) {
+      score = 50;
+    }
     break;
 
     case "yahtzeeBonus":
-    //score = 100
+    // if (/(.)\1{4}/.test(resultString) || yahtzee.scored=true) {
+    //   score = 100;
+    // }
     break;
 
     case "chance":
@@ -270,10 +268,10 @@ function drawAllDice() {
     }
   }
 }
+
 function addDiceListeners() {
   for (let i = 0; i < dice.length; i ++) {
     $diceSpace(i).on('click', (event) => {
-      console.log(i);
       if (dice[i].locked) {
         dice[i].locked = false;
       } else {
@@ -283,15 +281,23 @@ function addDiceListeners() {
     });
   }
 }
+function removeDiceListeners() {
+  for (let i = 0; i < dice.length; i ++) {
+    $diceSpace(i).off('click');
+  }
+}
+
 function gameLoop() {
   $('#newGame').on('click', (event) => {
     $('#controls').removeClass('hide');
+    removeDiceListeners();
     resetDice();
     drawAllDice();
-    drawScoreCard();
     resetScoreCard();
+    drawScoreCard();
   });
   $('#roll').on('click', (event) => {
+    removeDiceListeners();
     addDiceListeners();
     rollDice();
     drawAllDice();
