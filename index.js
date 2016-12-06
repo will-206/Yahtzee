@@ -1,9 +1,5 @@
 "use strict";
 
-function random() {
-  return Math.floor(Math.random() * 6 + 1);
-}
-
 const scoreCard = {
   aces: {name: "Aces", score: 0, used: false},
   twos: {name: "Twos", score: 0, used: false},
@@ -20,22 +16,27 @@ const scoreCard = {
   yahtzee: {name: "Yahtzee!", score: 0, used: false},
   yahtzeeBonus: {name: "Yahtzee Bonus", score: 0, used: false},
   chance: {name: "Chance", score: 0, used: false},
-  total: {name: "Total", score: 0}
+  total: {name: "Total", score: 0, used: false}
 }
 
 function getScore(category) {
   let resultArr = [];
-  let resultObj = {};
   for (let key in dice) {
     resultArr.push(dice[key].currentValue);
-    if ("key" in resultObj) {
-      key ++;
-    } else {
-      resultObj.key = 1;
-    }
   }
-  console.log(resultObj);
   let score = 0;
+
+  function resultObj() {
+    let resultObj = {};
+    for (let elem in resultArr) {
+      if (resultObj.hasOwnProperty('elem')) {
+
+      } else {
+        resultObj.elem = resultArr.elem
+      }
+    }
+    return resultObj;
+  }
 
   function addScore(number) {
     for(let elem in resultArr) {
@@ -46,7 +47,6 @@ function getScore(category) {
   }
 
   function countDuplicates() {
-
   }
 
   function total(){
@@ -219,13 +219,20 @@ function drawDice(face, space) {
     space.append($dice);
   }
 }
-const dice = {
-  space1: {currentValue: 6, locked: false},
-  space2: {currentValue: 6, locked: false},
-  space3: {currentValue: 6, locked: false},
-  space4: {currentValue: 6, locked: false},
-  space5: {currentValue: 6, locked: false},
-}
+// const dice = {
+//   space1: {currentValue: 6, locked: false},
+//   space2: {currentValue: 6, locked: false},
+//   space3: {currentValue: 6, locked: false},
+//   space4: {currentValue: 6, locked: false},
+//   space5: {currentValue: 6, locked: false},
+// }
+const dice = [
+  {currentValue: 6, locked: false},
+  {currentValue: 6, locked: false},
+  {currentValue: 6, locked: false},
+  {currentValue: 6, locked: false},
+  {currentValue: 6, locked: false}
+]
 function resetDice() {
   for (let key in dice) {
     dice[key].currentValue = 6;
@@ -240,7 +247,7 @@ function unlock() {
 function rollDice() {
   for (let key in dice) {
     if (!dice[key].locked) {
-      dice[key].currentValue = random();
+      dice[key].currentValue = Math.floor(Math.random() * 6 + 1);
     }
   }
 }
