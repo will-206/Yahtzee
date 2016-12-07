@@ -21,8 +21,8 @@
           <h1 class="valign center-align">Yahtzee!</h1>
         </div>
 
-        <div id="rules" class="col s3">
-          <a class="valign center-align">Rules<a>
+        <div class="col s3">
+          <a class="valign center-align"><a>
         </div>
       </div>
     </header>
@@ -36,7 +36,7 @@
             </div>
 
             <section id="controls" class="hide">
-              <h3 class="center-align">Player 1</h3>
+              <h3 id="playerName"class="playerName  center-align"></h3>
 
               <div class="center-align">
                 <a id="roll" class="btn">Roll</a>
@@ -67,20 +67,20 @@
         </div>
 
         <div class="col s4 blue lighten-1">
-          <div class="row">
+          <!-- <div class="row"> -->
             <h5 class="center-align white-text">Score</h5>
             <table class="bordered highlight">
               <thead>
                 <tr>
                   <th data-field="id"></th>
-                  <th data-field="name">Player 1</th>
+                  <th class="playerName" data-field="name"></th>
                 </tr>
               </thead>
 
               <tbody id="tableBody">
               </tbody>
             </table>
-          </div>
+          <!-- </div> -->
         </div>
       </div>
     </main>

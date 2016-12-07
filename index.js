@@ -1,4 +1,29 @@
 "use strict";
+let playerName = "Player 1"
+const $xhr = $.ajax({
+  method: 'GET',
+  url:'https://randomuser.me/api/',
+  dataType: 'json'
+});
+
+$xhr.done((data) => {
+  if ($xhr.status !== 200) {
+    return;
+  }
+  playerName = (data.results[0].login.username.replace(/\d/g, ""));
+});
+
+$xhr.fail((err) => {
+  console.log(err);
+});
+// global vars //
+const dice = [
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false},
+  {currentValue: 0, locked: false}
+];
 
 const scoreCard = {
   aces: {name: "Aces", score: 0, used: false},
@@ -18,7 +43,7 @@ const scoreCard = {
   chance: {name: "Chance", score: 0, used: false},
   total: {name: "Total", score: 0, used: false}
 }
-
+// score card functions //
 function getScore(category) {
   let resultArr = [];
   let score = 0;
@@ -26,8 +51,8 @@ function getScore(category) {
   for (let key in dice) {
     resultArr.push(dice[key].currentValue);
   }
+
   let resultString = resultArr.sort().toString().replace(/,/g, "");
-  console.log(resultString);
 
   function addScore(number) {
     for(let elem in resultArr) {
@@ -36,9 +61,6 @@ function getScore(category) {
       }
     }
   }
-
-  // function countDuplicates() {
-  // }
 
   function total(){
     let total = 0;
@@ -91,11 +113,12 @@ function getScore(category) {
     break;
 
     case "fullHouse":
-    //score = 25
+    if (/(.)\1{2}(.)\2{1}|(.)\3{1}(.)\4{2}/.test(resultString)) {
+      score = 25;
+    }
     break;
 
     case "smStraight":
-    console.log(resultArr.sort().toString());
     if (/1.*2.*3.*4|2.*3.*4.*5|3.*4.*5.*6/.test(resultString)) {
       score = 30;
     }
@@ -127,7 +150,6 @@ function getScore(category) {
     //add up every "used" category
     break;
   }
-  // console.log(score);
   return score;
 }
 
@@ -146,13 +168,20 @@ function drawScoreCard() {
     $('#tableBody').append($tableRow);
   }
 }
+// function addScoreListeners() {
+//   for (let elem in scoreCard) {
+//     scoreCard.elem.on('click', (event) => {
+//
+//     });
+//   }
+// }
 function resetScoreCard() {
   for (const elem in scoreCard) {
-    console.log(scoreCard[elem].score);
     scoreCard[elem].score = 0;
   }
 }
 
+// dice functions //
 function drawDice(face, space) {
   const $dice = $('<div>');
   $dice.addClass('dice');
@@ -223,30 +252,16 @@ function drawDice(face, space) {
     space.append($dice);
   }
 }
-// const dice = {
-//   space1: {currentValue: 6, locked: false},
-//   space2: {currentValue: 6, locked: false},
-//   space3: {currentValue: 6, locked: false},
-//   space4: {currentValue: 6, locked: false},
-//   space5: {currentValue: 6, locked: false},
-// }
-const dice = [
-  {currentValue: 0, locked: false},
-  {currentValue: 0, locked: false},
-  {currentValue: 0, locked: false},
-  {currentValue: 0, locked: false},
-  {currentValue: 0, locked: false}
-];
+function unlockDice() {
+  for (let i = 0; i < dice.length; i++) {
+    dice[i].locked = false;
+  }
+}
 function resetDice() {
   for (let i = 0; i< dice.length; i++) {
     dice[i].currentValue = 6;
   }
   unlockDice();
-}
-function unlockDice() {
-  for (let i = 0; i < dice.length; i++) {
-    dice[i].locked = false;
-  }
 }
 function rollDice() {
   for (let i = 0; i < dice.length; i++) {
@@ -287,21 +302,21 @@ function removeDiceListeners() {
   }
 }
 
-function gameLoop() {
-  $('#newGame').on('click', (event) => {
-    $('#controls').removeClass('hide');
-    removeDiceListeners();
-    resetDice();
-    drawAllDice();
-    resetScoreCard();
-    drawScoreCard();
-  });
-  $('#roll').on('click', (event) => {
-    removeDiceListeners();
-    addDiceListeners();
-    rollDice();
-    drawAllDice();
-    drawScoreCard();
-  });
-}
-gameLoop();
+// listeners
+$('#newGame').on('click', (event) => {
+  $('#controls').removeClass('hide');
+  removeDiceListeners();
+  resetDice();
+  drawAllDice();
+  drawScoreCard();
+  $('.playerName').text(playerName);
+  console.log($('.playerName'));
+});
+
+$('#roll').on('click', (event) => {
+  removeDiceListeners();
+  addDiceListeners();
+  rollDice();
+  drawAllDice();
+  drawScoreCard();
+});
