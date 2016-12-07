@@ -217,9 +217,8 @@ function drawScoreCard() {
       }
       return false;
     }
-    //if (scoreable(elem)) {
-      $td.addClass("indigo lighten-5");
-    //}
+    $td.addClass("indigo lighten-5");
+
     if (scoreCard[elem].used === true || !scoreable(elem)) {
       $td.removeClass('indigo lighten-5');
       thisScore = scoreCard[elem].score;
@@ -230,8 +229,6 @@ function drawScoreCard() {
         drawScoreCard();
         resetDice();
       });
-      // $(".total").off('click');
-      // remove event listener from total and bonus row
     }
 
     // $td.addClass("value");
