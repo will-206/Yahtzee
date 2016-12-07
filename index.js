@@ -17,6 +17,8 @@ $xhr.fail((err) => {
   console.log(err);
 });
 // global vars //
+let remainingRolls = 3;
+
 const dice = [
   {currentValue: 0, locked: false},
   {currentValue: 0, locked: false},
@@ -39,7 +41,7 @@ const scoreCard = {
   smStraight: {name: "Small Straight", score: 0, used: false},
   lgStraight: {name: "Large Straight", score: 0, used: false},
   yahtzee: {name: "Yahtzee!", score: 0, used: false},
-  yahtzeeBonus: {name: "Yahtzee Bonus", score: 0, used: false},
+  // yahtzeeBonus: {name: "Yahtzee Bonus", score: 0, used: false},
   chance: {name: "Chance", score: 0, used: false},
   total: {name: "Total", score: 0, used: false}
 }
@@ -67,8 +69,6 @@ function getScore(category) {
     for(let elem in resultArr) {
       subTotal += resultArr[elem];
     }
-    console.log(resultArr);
-    console.log(subTotal);
     return subTotal;
   }
 
@@ -100,6 +100,14 @@ function getScore(category) {
     case "bonus":
     //if above categories >= 63
     //score = 35
+    let subtotal = 0;
+    for (let i = 0; i < 6; i++) {
+      console.log(scoreCard[i]);
+      // subtotal +=
+    }
+    if (subtotal >= 63) {
+      score = 35;
+    }
     break;
 
     case "threeOfAKind":
@@ -159,25 +167,41 @@ function getScore(category) {
   return score;
 }
 
+// function drawScoreCard() {
+//   $('#tableBody').empty();
+//   for (let elem in scoreCard) {
+//     let $tableRow = $('<tr>');
+//     let thisScore = getScore(elem.toString())
+//     if (scoreCard[elem].used === true) {
+//       $tableRow.addClass('indigo lighten-5');
+//       thisScore = scoreCard[elem].score;
+//     } else {
+//       $tableRow.on('click', (event) => {
+//         scoreCard[elem].score = thisScore;
+//         scoreCard[elem].used = true;
+//         drawScoreCard();
+//         resetDice();
+//       });
+//       // $(".total").off('click');
+//       // remove event listener from total and bonus row
+//     }
+//     let $td = $('<td>');
+//     $td.addClass('category');
+//     $td.text(scoreCard[elem].name);
+//     $tableRow.append($td);
+//     $td = $('<td>');
+//     // $td.text(getScore(elem.toString()));
+//     $td.text(thisScore);
+//     $td.addClass("value");
+//     $tableRow.append($td);
+//     $('#tableBody').append($tableRow);
+//   }
+// }
 function drawScoreCard() {
   $('#tableBody').empty();
   for (let elem in scoreCard) {
     let $tableRow = $('<tr>');
     let thisScore = getScore(elem.toString())
-    if (scoreCard[elem].used === true) {
-      $tableRow.addClass('indigo lighten-5');
-      thisScore = scoreCard[elem].score;
-    } else {
-      $tableRow.on('click', (event) => {
-        scoreCard[elem].score = thisScore;
-        scoreCard[elem].used = true;
-        console.log(scoreCard[elem]);
-        drawScoreCard();
-        resetDice();
-      });
-      // $(".total").off('click');
-      // remove event listener from total and bonus row
-    }
     let $td = $('<td>');
     $td.addClass('category');
     $td.text(scoreCard[elem].name);
@@ -185,7 +209,32 @@ function drawScoreCard() {
     $td = $('<td>');
     // $td.text(getScore(elem.toString()));
     $td.text(thisScore);
-    $td.addClass("value");
+
+    $td.addClass("center-align");
+    function scoreable(category) {
+      if (category !== "total" && category !== "bonus") {
+        return true;
+      }
+      return false;
+    }
+    //if (scoreable(elem)) {
+      $td.addClass("indigo lighten-5");
+    //}
+    if (scoreCard[elem].used === true || !scoreable(elem)) {
+      $td.removeClass('indigo lighten-5');
+      thisScore = scoreCard[elem].score;
+    } else {
+      $tableRow.on('click', (event) => {
+        scoreCard[elem].score = thisScore;
+        scoreCard[elem].used = true;
+        drawScoreCard();
+        resetDice();
+      });
+      // $(".total").off('click');
+      // remove event listener from total and bonus row
+    }
+
+    // $td.addClass("value");
     $tableRow.append($td);
     $('#tableBody').append($tableRow);
   }
@@ -334,7 +383,6 @@ $('#newGame').on('click', (event) => {
   resetScoreCard()
   drawScoreCard();
   $('.playerName').text(playerName);
-
 });
 
 $('#roll').on('click', (event) => {
@@ -343,4 +391,6 @@ $('#roll').on('click', (event) => {
   rollDice();
   drawAllDice();
   drawScoreCard();
+  remainingRolls --;
+  console.log(remainingRolls);
 });
