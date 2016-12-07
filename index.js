@@ -30,7 +30,7 @@ const scoreCard = {
   twos: {name: "Twos", score: 0, used: false},
   threes: {name: "Threes", score: 0, used: false},
   fours: {name: "Fours", score: 0, used: false},
-  fives: {name: "Five", score: 0, used: false},
+  fives: {name: "Fives", score: 0, used: false},
   sixes: {name: "Sixes", score: 0, used: false},
   bonus: {name: "Bonus", score: 0, used: false},
   threeOfAKind: {name: "Three of a kind", score: 0, used: false},
@@ -62,12 +62,14 @@ function getScore(category) {
     }
   }
 
-  function total(){
-    let total = 0;
+  function total() {
+    let subTotal = 0;
     for(let elem in resultArr) {
-      total += resultArr[elem];
+      subTotal += resultArr[elem];
     }
-    return total;
+    console.log(resultArr);
+    console.log(subTotal);
+    return subTotal;
   }
 
   switch (category) {
@@ -102,13 +104,13 @@ function getScore(category) {
 
     case "threeOfAKind":
     if (/(.)\1{2}/.test(resultString)) {
-      score = total;
+      score = total();
     }
     break;
 
     case "fourOfAKind":
     if (/(.)\1{3}/.test(resultString)) {
-      score = total;
+      score = total();
     }
     break;
 
@@ -143,11 +145,15 @@ function getScore(category) {
     break;
 
     case "chance":
-    score = total;
+    score = total();
     break;
 
     case "total":
-    //add up every "used" category
+    for (let elem in scoreCard) {
+      if (scoreCard[elem].used === true) {
+        score += scoreCard[elem].score;
+      }
+    }
     break;
   }
   return score;
@@ -157,27 +163,38 @@ function drawScoreCard() {
   $('#tableBody').empty();
   for (let elem in scoreCard) {
     let $tableRow = $('<tr>');
+    let thisScore = getScore(elem.toString())
+    if (scoreCard[elem].used === true) {
+      $tableRow.addClass('indigo lighten-5');
+      thisScore = scoreCard[elem].score;
+    } else {
+      $tableRow.on('click', (event) => {
+        scoreCard[elem].score = thisScore;
+        scoreCard[elem].used = true;
+        console.log(scoreCard[elem]);
+        drawScoreCard();
+        resetDice();
+      });
+      // $(".total").off('click');
+      // remove event listener from total and bonus row
+    }
     let $td = $('<td>');
     $td.addClass('category');
     $td.text(scoreCard[elem].name);
     $tableRow.append($td);
     $td = $('<td>');
-    $td.text(getScore(elem.toString()));
+    // $td.text(getScore(elem.toString()));
+    $td.text(thisScore);
     $td.addClass("value");
     $tableRow.append($td);
     $('#tableBody').append($tableRow);
   }
 }
-// function addScoreListeners() {
-//   for (let elem in scoreCard) {
-//     scoreCard.elem.on('click', (event) => {
-//
-//     });
-//   }
-// }
+
 function resetScoreCard() {
   for (const elem in scoreCard) {
     scoreCard[elem].score = 0;
+    scoreCard[elem].used = false;
   }
 }
 
@@ -252,6 +269,7 @@ function drawDice(face, space) {
     space.append($dice);
   }
 }
+
 function unlockDice() {
   for (let i = 0; i < dice.length; i++) {
     dice[i].locked = false;
@@ -262,6 +280,7 @@ function resetDice() {
     dice[i].currentValue = 6;
   }
   unlockDice();
+  drawAllDice();
 }
 function rollDice() {
   for (let i = 0; i < dice.length; i++) {
@@ -269,6 +288,7 @@ function rollDice() {
       dice[i].currentValue = Math.floor(Math.random() * 6 + 1);
     }
   }
+  // unlockDice();
 }
 function $diceSpace(index) {
   return $('#space' + (index + 1));
@@ -303,14 +323,18 @@ function removeDiceListeners() {
 }
 
 // listeners
+$(document).ready(function() {
+  $('.modal-trigger').leanModal();
+});
+
 $('#newGame').on('click', (event) => {
   $('#controls').removeClass('hide');
   removeDiceListeners();
   resetDice();
-  drawAllDice();
+  resetScoreCard()
   drawScoreCard();
   $('.playerName').text(playerName);
-  console.log($('.playerName'));
+
 });
 
 $('#roll').on('click', (event) => {
