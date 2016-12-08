@@ -3,7 +3,7 @@
 const gameStats = {
   playerName: 'player 1',
   remainingRolls: 3,
-  highScore: JSON.parse(localStorage.getItem('highScore')) || 1
+  highScore: JSON.parse(localStorage.getItem('highScore')) || 0
 };
 
 const dice = [
