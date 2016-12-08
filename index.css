@@ -3,10 +3,20 @@ body {
 }
 #cup {
   /*padding: 5px;*/
-  margin-top: 20px;
+  /*margin-top: 20px;*/
 }
-#roll {
-  /*margin: 10px;*/
+#turnTips {
+  color: red;
+}
+.clickable {
+  cursor: pointer;
+}
+
+.material-icons {
+  margin-top: 5px;
+}
+.diceRow{
+  height: 115px;
 }
 
 .dice {
@@ -19,7 +29,7 @@ body {
   border-bottom: 10px solid lightgrey;
   border-right: 10px solid lightgrey;
   padding: 10px;
-  margin-left: 5px;
+  /*margin-left: 10px;*/
   display: flex;
   justify-content: space-between;
 }

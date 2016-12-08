@@ -41,7 +41,7 @@
         </div>
 
         <div class="col s3">
-          <a class="valign center-align"><a>
+          <div id="highScore" class="valign center-align">High Score: 0</div>
         </div>
       </div>
     </header>
@@ -49,59 +49,60 @@
     <main>
       <div class="row">
         <div class="col s8">
-          <div class="container">
-            <div class="row center-align">
-              <a id="newGame" class="btn">New Game</a>
+          <div class="row center-align">
+            <a id="newGame" class="btn">New Game</a>
+          </div>
+
+          <h4 id="finalScore" class="row hide center-align">placeholder</h4>
+
+          <section id="controls" class="hide">
+            <h3 id="playerName" class="playerName center-align"></h3>
+
+            <div class="row">
+              <div class="center-align">
+                <a id="roll" class="btn">Roll</a>
+              </div>
+              <h6 id="remainingRolls" class="center-align"></h6>
             </div>
 
-            <section id="controls" class="hide">
-              <h3 id="playerName"class="playerName  center-align"></h3>
-
-              <div class="row">
-                <div class="center-align">
-                  <a id="roll" class="btn">Roll</a>
+            <div class="col s12 l6">
+              <div class="row diceRow">
+                <div id="space1" class="center-align col s4 pink lighten-4">
                 </div>
-                <h6 id="remainingRolls"class="center-align"></h6>
-              </div>
-
-              <div class="col s12 l6">
-                <div class="row">
-                  <div id="space1"class="center-align col s4 pink lighten-4">
-                  </div>
-                  <div id="space2"class="center-align col s4 pink lighten-3">
-                  </div>
-                  <div id="space3"class="center-align col s4 pink lighten-4">
-                  </div>
+                <div id="space2" class="center-align col s4 pink lighten-3">
+                </div>
+                <div id="space3" class="center-align col s4 pink lighten-4">
                 </div>
               </div>
+            </div>
 
-              <div class="col s12 l6">
-                <div class="row">
-                  <div id="space4"class="center-align col s4 pink lighten-3">
-                  </div>
-                  <div id="space5"class="center-align col s4 pink lighten-4">
-                  </div>
+            <div class="col s12 l6">
+              <div class="row diceRow">
+                <div id="space4" class="center-align col s4 pink lighten-3">
+                </div>
+                <div id="space5" class="center-align col s4 pink lighten-4">
                 </div>
               </div>
-            </section>
-          </div>
+            </div>
+
+            <h6 id="turnTips" class="center-align clickable">turnTips</h6>
+          </section>
         </div>
 
         <div class="col s4 blue lighten-1">
-          <!-- <div class="row"> -->
-            <h5 class="center-align white-text">Score</h5>
-            <table class="bordered highlight">
-              <thead>
-                <tr>
-                  <th data-field="id"></th>
-                  <th class="playerName" data-field="name"></th>
-                </tr>
-              </thead>
+          <h5 class="center-align white-text">Score</h5>
 
-              <tbody id="tableBody">
-              </tbody>
-            </table>
-          <!-- </div> -->
+          <table class="bordered highlight">
+            <thead>
+              <tr>
+                <th data-field="id"></th>
+                <th class="playerName" data-field="name"></th>
+              </tr>
+            </thead>
+
+            <tbody id="tableBody">
+            </tbody>
+          </table>
         </div>
       </div>
     </main>
