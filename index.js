@@ -1,7 +1,6 @@
 "use strict";
 // global vars //
 let gameStats = {
-  playerName: "Player 1",
   remainingRolls: 3
 }
 
@@ -177,27 +176,29 @@ function drawScoreCard() {
   $('#tableBody').empty();
   for (let elem in scoreCard) {
     let $tableRow = $('<tr>');
+    $tableRow.addClass('category');
     let $td = $('<td>');
-    $td.addClass('category');
     $td.text(scoreCard[elem].name);
     $tableRow.append($td);
     $td = $('<td>');
     $td.addClass("center-align");
-    let thisScore = getScore(elem.toString());
+    let thisRollScore = getScore(elem.toString());
 
-    $td.text(thisScore);
+    $td.text(thisRollScore);
 
     if (scoreCard[elem].used === false && scoreCard[elem].section !== "none") {
       $td.addClass('indigo lighten-5');
       $tableRow.on('click', (event) => {
-        scoreCard[elem].score = thisScore;
+        scoreCard[elem].score = thisRollScore;
         scoreCard[elem].used = true;
+        gameStats.remainingRolls = 3;
         drawScoreCard();
         resetDice();
         removeDiceListeners();
+        addRollListener();
       });
     } else if (scoreCard[elem].section === "none") {
-      scoreCard[elem].score = thisScore;
+      scoreCard[elem].score = thisRollScore;
     } else {
       $td.text(scoreCard[elem].score);
     }
@@ -212,10 +213,9 @@ function resetScoreCard() {
     scoreCard[elem].used = false;
   }
 }
-// function removeScoreCardListeners() {
-//   $tableRow.off('click');
-// }
-
+function removeScoreCardListeners() {
+  $('.category').off('click');
+}
 // dice functions //
 function drawDice(face, space) {
   const $dice = $('<div>');
@@ -291,6 +291,7 @@ function drawDice(face, space) {
 function unlockDice() {
   for (let i = 0; i < dice.length; i++) {
     dice[i].locked = false;
+    console.log(dice[i].locked);
   }
 }
 function resetDice() {
@@ -299,6 +300,9 @@ function resetDice() {
   }
   unlockDice();
   drawAllDice();
+  //reset roll counter
+  gameStats.remainingRolls = 3;
+  $('#remainingRolls').text("Remaining Rolls: " + gameStats.remainingRolls);
 }
 function rollDice() {
   for (let i = 0; i < dice.length; i++) {
@@ -345,6 +349,30 @@ $(document).ready(function() {
   $('.modal-trigger').leanModal();
 });
 
+function addRollListener() {
+  $('#roll').removeClass('grey');
+  $('#roll').on('click', (event) => {
+    removeDiceListeners();
+    addDiceListeners();
+    rollDice();
+    drawAllDice();
+    drawScoreCard();
+    gameStats.remainingRolls --;
+    $('#remainingRolls').text("Remaining Rolls: " + gameStats.remainingRolls);
+    if (gameStats.remainingRolls === 0) {
+      removeRollListener();
+    }
+  });
+}
+function removeRollListener() {
+  console.log("unlockDice");
+  unlockDice();
+  drawAllDice();
+  $('#roll').off('click');
+  $('#roll').addClass('grey');
+  removeDiceListeners();
+}
+
 $('#newGame').on('click', (event) => {
   $('#controls').removeClass('hide');
   removeDiceListeners();
@@ -352,16 +380,5 @@ $('#newGame').on('click', (event) => {
   resetScoreCard()
   drawScoreCard();
   $('.playerName').text(gameStats.playerName);
-  gameStats.remainingRolls = 3;
-  $('#remainingRolls').text("Remaining Rolls: " + gameStats.remainingRolls);
-});
-
-$('#roll').on('click', (event) => {
-  removeDiceListeners();
-  addDiceListeners();
-  rollDice();
-  drawAllDice();
-  drawScoreCard();
-  gameStats.remainingRolls --;
-  $('#remainingRolls').text("Remaining Rolls: " + gameStats.remainingRolls);
+  addRollListener();
 });
