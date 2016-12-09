@@ -1,13 +1,17 @@
 body {
   background-color: #BCC897;
+  overflow: hidden;
 }
-#cup {
-  /*padding: 5px;*/
-  /*margin-top: 20px;*/
-}
+
 #turnTips {
   color: red;
 }
+
+#scoreCard {
+  overflow-y: scroll;
+  height: 580px;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -15,9 +19,14 @@ body {
 .material-icons {
   margin-top: 5px;
 }
+
 .diceRow{
   height: 115px;
 }
+
+/*#row2 {
+  margin: 0 auto;
+}*/
 
 .dice {
   height: 100px;
@@ -29,7 +38,7 @@ body {
   border-bottom: 10px solid lightgrey;
   border-right: 10px solid lightgrey;
   padding: 10px;
-  /*margin-left: 10px;*/
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
 }
