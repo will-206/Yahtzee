@@ -53,7 +53,7 @@ const updateTips = function() {
   const rolls = gameStats.remainingRolls;
 
   if (rolls === 3) {
-    $('#turnTips').text('Click Roll');
+    $('#turnTips').text('');
   }
   else if (rolls === 0) {
     $('#turnTips').text('Click Category to Score');
@@ -205,12 +205,12 @@ const drawScoreCard = function() {
   for (const elem in scoreCard) {
     const $tableRow = $('<tr>');
 
-    $tableRow.addClass('category');
+    $tableRow.addClass('category grey lighten');
 
     let $td = $('<td>');
 
     if (scoreCard[elem].name === 'Bonus') {
-      $td.text('Bonus (score 35 if above categories > 62)');
+      $td.text('Bonus (score 35 if sum of above categories >= 63)');
     }
     else {
       $td.text(scoreCard[elem].name);
@@ -222,7 +222,7 @@ const drawScoreCard = function() {
     $td.text(thisRollScore);
 
     if (!scoreCard[elem].used && scoreCard[elem].section !== 'none') {
-      $td.addClass('indigo lighten-5');
+      $tableRow.addClass('grey lighten-5');
       $tableRow.addClass('clickable');
       addRowListeners(elem, $tableRow, thisRollScore);
     }
@@ -243,13 +243,14 @@ const addRowListeners = function(elem, $tr, thisRollScore) {
     scoreCard[elem].used = true;
     gameStats.remainingRolls = 3;
     updateTips();
-    drawScoreCard();
-    removeScoreCardListeners();
     resetDice();
     removeDiceListeners();
     removeRollListener();
     addRollListener();
+    drawScoreCard();
+    removeScoreCardListeners();
     checkGameOver();
+    $('#scoreHeader').text("Score: " + scoreCard.total.score);
   });
 };
 
@@ -458,6 +459,7 @@ const addRollListener = function() {
       removeRollListener();
     }
     updateTips();
+    $('.playerName').text('Username: ' + gameStats.playerName);
   });
 };
 
@@ -465,16 +467,17 @@ $('#turnTips').on('click', () => {
   $('#turnTips').toggleClass('hide');
 });
 
+addRollListener();
 $('#newGame').on('click', () => {
   $('#finalScore').addClass('hide');
   removeRollListener();
   addRollListener();
-  $('#controls').removeClass('hide');
+  // $('#controls').removeClass('hide');
   removeDiceListeners();
   resetDice();
   resetScoreCard();
   drawScoreCard();
   removeScoreCardListeners();
-  $('.playerName').text(gameStats.playerName);
+  $('.playerName').text('Username: ' + gameStats.playerName);
   updateTips();
 });

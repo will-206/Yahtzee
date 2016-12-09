@@ -13,9 +13,10 @@
 
   <body>
     <header>
-      <div class="row cyan lighten-3 z-depth-1 valign-wrapper">
+      <div class="row red darken-4 z-depth-1 valign-wrapper">
         <div class="col s3 center-align">
-          <button data-target="modal1" class="btn  modal-trigger">Rules</button>
+          <button data-target="modal1" class="btn red darken-2 modal-trigger">View Rules</button>
+          <a id="newGame" class="btn red darken-2">New Game</a>
         </div>
 
         <div id="modal1" class="modal">
@@ -37,7 +38,7 @@
         </div>
 
         <div class="col s6">
-          <h1 class="valign center-align">Yahtzee!</h1>
+          <h2 class="valign center-align">Yahtzee!</h2>
         </div>
 
         <div class="col s3">
@@ -49,18 +50,18 @@
     <main>
       <div class="row">
         <div class="col s8">
-          <div class="row center-align">
-            <a id="newGame" class="btn">New Game</a>
-          </div>
+          <!-- <div class="row center-align">
+            <a id="newGame" class="btn red darken-2">New Game</a>
+          </div> -->
 
           <h4 id="finalScore" class="row hide center-align">placeholder</h4>
 
-          <section id="controls" class="hide">
-            <h3 id="playerName" class="playerName center-align"></h3>
+          <section id="controls">
+            <h6 id="playerName" class="playerName left-align"></h6>
 
             <div class="row">
               <div class="center-align">
-                <a id="roll" class="btn">Roll</a>
+                <a id="roll" class="btn red darken-2">Roll</a>
               </div>
               <h6 id="remainingRolls" class="center-align"></h6>
             </div>
@@ -78,7 +79,7 @@
 
             <div class="col s12 ">
               <div id="row2" class="row diceRow">
-                <div style="color: #BCC897"class="col s2">dontlook</div>
+                <div style="color: #1b5e20"class="col s2">dontlook</div>
                 <div id="space4" class="center-align col s4">
                 </div>
                 <div id="space5" class="center-align col s4">
@@ -86,20 +87,20 @@
               </div>
             </div>
 
-            <h6 id="turnTips" class="center-align clickable">turnTips</h6>
+            <h6 id="turnTips" class="center-align clickable"></h6>
           </section>
         </div>
 
-        <div class="col s4 blue lighten-1 z-depth-2">
-          <h5 id="scoreHeader" class="center-align white-text z-depth-1">Score</h5>
+        <div class="col s4 grey lighten-5 z-depth-2">
+          <h5 id="scoreHeader" class="center-align z-depth-1">Score: 0</h5>
 
-          <div id="scoreCard" style="overflow-y: scroll; height: 530px;">
+          <div id="scoreCard" style="overflow-y: scroll; height: 560px;">
 
-            <table class="bordered highlight">
+            <table class="bordered">
               <thead>
                 <tr>
                   <th data-field="id"></th>
-                  <th class="playerName" data-field="name"></th>
+                  <th data-field="name"></th>
                 </tr>
               </thead>
 

@@ -1,11 +1,21 @@
 body {
-  background-color: #BCC897;
+  background-color: #1b5e20;
+  /*background-color: #2e7d32;*/
   overflow: hidden;
 }
 
-#turnTips {
-  color: red;
+h2 {
+  color: white;
+  font-weight: bold;
 }
+
+#highScore {
+  color: white;
+}
+
+/*#turnTips {
+  color: red;
+}*/
 
 #scoreHeader {
   border-bottom: 1px solid #D0D0D0;
