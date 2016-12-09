@@ -1,12 +1,15 @@
 body {
   background-color: #1b5e20;
-  /*background-color: #2e7d32;*/
   overflow: hidden;
 }
 
 h2 {
   color: white;
   font-weight: bold;
+}
+
+td, th {
+  padding: 6px 0px;
 }
 
 #highScore {
@@ -42,6 +45,9 @@ h2 {
   padding: 0;
 }
 
+/*.dice:hover {
+
+}*/
 .dice {
   height: 100px;
   width: 100px;
