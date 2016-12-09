@@ -65,22 +65,23 @@
               <h6 id="remainingRolls" class="center-align"></h6>
             </div>
 
-            <div class="col s12 l6">
+            <div class="col s12 ">
               <div id="row1" class="row diceRow">
-                <div id="space1" class="center-align col s4 pink lighten-4">
+                <div id="space1" class="center-align col s4">
                 </div>
-                <div id="space2" class="center-align col s4 pink lighten-3">
+                <div id="space2" class="center-align col s4">
                 </div>
-                <div id="space3" class="center-align col s4 pink lighten-4">
+                <div id="space3" class="center-align col s4">
                 </div>
               </div>
             </div>
 
-            <div class="col s12 l6">
+            <div class="col s12 ">
               <div id="row2" class="row diceRow">
-                <div id="space4" class="center-align col s4 pink lighten-3">
+                <div style="color: #BCC897"class="col s2">dontlook</div>
+                <div id="space4" class="center-align col s4">
                 </div>
-                <div id="space5" class="center-align col s4 pink lighten-4">
+                <div id="space5" class="center-align col s4">
                 </div>
               </div>
             </div>
@@ -89,20 +90,23 @@
           </section>
         </div>
 
-        <div id="scoreCard" class="col s4 blue lighten-1 z-depth-2">
-          <h5 class="center-align white-text">Score</h5>
+        <div class="col s4 blue lighten-1 z-depth-2">
+          <h5 id="scoreHeader" class="center-align white-text z-depth-1">Score</h5>
 
-          <table class="bordered highlight">
-            <thead>
-              <tr>
-                <th data-field="id"></th>
-                <th class="playerName" data-field="name"></th>
-              </tr>
-            </thead>
+          <div id="scoreCard" style="overflow-y: scroll; height: 530px;">
 
-            <tbody id="tableBody">
-            </tbody>
-          </table>
+            <table class="bordered highlight">
+              <thead>
+                <tr>
+                  <th data-field="id"></th>
+                  <th class="playerName" data-field="name"></th>
+                </tr>
+              </thead>
+
+              <tbody id="tableBody">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>

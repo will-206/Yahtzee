@@ -7,9 +7,13 @@ body {
   color: red;
 }
 
-#scoreCard {
-  overflow-y: scroll;
-  height: 580px;
+#scoreHeader {
+  border-bottom: 1px solid #D0D0D0;
+  /*left: -20px !important;*/
+  margin: 0px;
+  padding: 5px;
+  /*padding-left: 10px;
+  width: 240px;*/
 }
 
 .clickable {
@@ -24,9 +28,9 @@ body {
   height: 115px;
 }
 
-/*#row2 {
-  margin: 0 auto;
-}*/
+.diceContainer {
+  padding: 0;
+}
 
 .dice {
   height: 100px;
