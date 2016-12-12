@@ -29,8 +29,6 @@ const scoreCard = {
   smStraight: { name: 'Small Straight', score: 0, used: false, section: 'lower' },
   lgStraight: { name: 'Large Straight', score: 0, used: false, section: 'lower' },
   yahtzee: { name: 'Yahtzee!', score: 0, used: false, section: 'lower' },
-
-  // yahtzeeBonus: { name: 'Yahtzee Bonus', score: 0, used: false, },
   chance: { name: 'Chance', score: 0, used: false, section: 'lower' },
   total: { name: 'Total', score: 0, used: false, section: 'none' }
 };
@@ -170,12 +168,6 @@ const getScore = function(category) {
         score = 50;
       }
       break;
-
-    // case 'yahtzeeBonus':
-      //  if (/(.)\1{4}/.test(resultString) || yahtzee.scored=true) {
-      //    score = 100;
-      //  }
-      // break;
 
     case 'chance':
       score = total();
@@ -472,7 +464,6 @@ $('#newGame').on('click', () => {
   $('#finalScore').addClass('hide');
   removeRollListener();
   addRollListener();
-  // $('#controls').removeClass('hide');
   removeDiceListeners();
   resetDice();
   resetScoreCard();

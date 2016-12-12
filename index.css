@@ -16,17 +16,10 @@ td, th {
   color: white;
 }
 
-/*#turnTips {
-  color: red;
-}*/
-
 #scoreHeader {
   border-bottom: 1px solid #D0D0D0;
-  /*left: -20px !important;*/
   margin: 0px;
   padding: 5px;
-  /*padding-left: 10px;
-  width: 240px;*/
 }
 
 .clickable {
@@ -45,9 +38,6 @@ td, th {
   padding: 0;
 }
 
-/*.dice:hover {
-
-}*/
 .dice {
   height: 100px;
   width: 100px;
