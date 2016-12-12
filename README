@@ -1,0 +1,14 @@
+Yahtzee is a single player web version of the popular dice game. It is for people who want a quick fun game where you can try to beat your high score. The object of the game is to get as many points as you can by rolling five dice to get certain combinations of dice.
+
+You can roll the dice up to three times each turn. After the fist roll, click the dice you want to keep. These will not be re-rolled when you roll again. After you have rolled three times you must choose a category to score. Once every category is scored the game ends. Click the "View Rules" button to view the full rules.
+
+Click on the tips section to hide them. 
+
+I used a random user generator api to get a username for the player. https://randomuser.me/
+
+In this project I used:
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- Materialize
